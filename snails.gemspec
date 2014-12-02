@@ -8,9 +8,12 @@ Gem::Specification.new do |spec|
   spec.version       = Snails::VERSION
   spec.authors       = ["Cody Duval"]
   spec.email         = ["cody.duval@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{YARWF (Yet Another Ruby Web Framework)}
+  spec.description   = %q{This is a slow, non-performant, unoptimized web
+                          framework written for fun.  Please don't use it
+                          in any production or otherwise important 
+                          environment.}
+  spec.homepage      = "http://www.codyduval.com"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
