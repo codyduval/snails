@@ -1,5 +1,7 @@
 require "snails/version"
 require "snails/routing"
+require "snails/util"
+require "snails/dependencies"
 
 module Snails
   class Application
@@ -12,12 +14,7 @@ module Snails
 
       klass, act = get_controller_and_action(env)
       controller = klass.new(env)
-
-      begin
-        text = controller.send(act)
-      rescue
-        text = "That didn't work! Sorry"
-      end
+      text = controller.send(act)
 
       [200, {'Content-Type' => 'text/html'},
         [text]] 
