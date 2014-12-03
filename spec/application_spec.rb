@@ -13,10 +13,21 @@ describe Snails::Application do
     TestApp.new
   end
 
-  it "parses env to get path info", :focus => true do
+  def env
+    last_request.env
+  end
+
+  it "parses env to get path info" do
     request '/test/test'
-    env = last_request.env
-    expect(env["PATH_INFO"]).to eq("hello") 
+    expect(env["PATH_INFO"]).to eq("/test/test") 
+  end
+
+  it "gets a controller and action from the path" do
+    get '/test/test'
+    klass_and_action = app.get_controller_and_action(env)
+
+    expect(klass_and_action.first).to eq(TestController) 
+    expect(klass_and_action.last).to eq("test") 
   end
 
   it "routes to a path" do
@@ -25,6 +36,14 @@ describe Snails::Application do
     expect(last_response.body).to eq("Roger That") 
   end
 
+end
+
+describe Snails do
+  it "snake_cases a camel cased string" do
+    snake_cased = Snails.to_underscore('ThisIsCamelCased')
+
+    expect(snake_cased).to eq('this_is_camel_cased')
+  end
 
 end
 

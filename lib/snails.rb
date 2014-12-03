@@ -2,6 +2,7 @@ require "snails/version"
 require "snails/routing"
 require "snails/util"
 require "snails/dependencies"
+require "snails/controller"
 
 module Snails
   class Application
