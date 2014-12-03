@@ -6,22 +6,26 @@ class TestController < Snails::Controller
     "Roger That"
   end
 end
-  
-describe Snails::Application do
 
-  def app
-    TestApp.new
+def app
+  TestApp.new
+end
+
+def env
+  last_request.env
+end
+
+describe "dependencies and module helpers" do
+
+  it "snake_cases a camel cased string" do
+    snake_cased = Snails.to_underscore('ThisIsCamelCased')
+
+    expect(snake_cased).to eq('this_is_camel_cased')
   end
 
-  def env
-    last_request.env
-  end
+end
 
-  it "parses env to get path info" do
-    request '/test/test'
-    expect(env["PATH_INFO"]).to eq("/test/test") 
-  end
-
+describe Snails::Controller do
   it "gets a controller and action from the path" do
     get '/test/test'
     klass_and_action = app.get_controller_and_action(env)
@@ -37,14 +41,13 @@ describe Snails::Application do
   end
 
 end
-
-describe Snails do
-  it "snake_cases a camel cased string" do
-    snake_cased = Snails.to_underscore('ThisIsCamelCased')
-
-    expect(snake_cased).to eq('this_is_camel_cased')
+  
+describe Snails::Application do
+  it "parses env to get path info" do
+    request '/test/test'
+    expect(env["PATH_INFO"]).to eq("/test/test") 
   end
-
 end
+
 
 
